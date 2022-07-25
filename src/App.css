@@ -170,15 +170,20 @@ section > a {
 .movie_details > *:not(button) {
   padding-right: 20px;
 }
+.movie_btn_search {
+  display: flex;
+  gap: 10px;
+}
 .add_btn,
 .remove_btn {
   cursor: pointer;
   padding: 0.5em 0.75em;
   display: flex;
   align-items: center;
-  border: none;
   color: hsla(var(--element1));
   background-color: hsla(var(--surface3));
+  border: 1px solid hsla(var(--accentLine));
+  border-radius: 5px;
 }
 .add_btn > .material-icons,
 .remove_btn > .material-icons {
