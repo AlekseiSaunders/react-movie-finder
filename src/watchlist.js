@@ -1,5 +1,12 @@
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import RenderWatchlist from './RenderWatchlist.js';
+import './App.css';
+import './reset.css';
+import './color_mode.js';
+import './check_color_prefs.js';
+const root = ReactDOM.createRoot(document.getElementById('root'));
 let movieIDs = [];
-const mainContent = document.getElementById('main_content');
 
 function getLocalStorage() {
   let keys = Object.keys(localStorage).filter((key) => key !== 'color-mode');
@@ -14,50 +21,45 @@ getLocalStorage();
 
 function renderLocalStorage(movies) {
   if (movieIDs.length < 1) {
-    mainContent.innerHTML = `
-<img class="placeholder_icon" src="./resources/media/noun-filmstrip-407066-9B9B9B.svg" alt="film icon">
-			<p>You don't have any saved movies yet!</p>
-<a href="https://www.flaticon.com/free-icons/film" title="film icons">Film icons created by Freepik -
-					Flaticon</a>
-`;
+    root.render(
+      <React.StrictMode>
+        <div className="main_content">
+          `
+          <img
+            className="placeholder_icon"
+            src="./resources/media/noun-filmstrip-407066-9B9B9B.svg"
+            alt="film icon"
+          />
+          <p>You don't have any saved movies yet!</p>
+          <a href="https://www.flaticon.com/free-icons/film" title="film icons">
+            Film icons created by Freepik - Flaticon
+          </a>
+          `
+        </div>
+      </React.StrictMode>
+    );
   }
-  console.log(3, movies);
-  for (let movie of movies) {
-    let film = JSON.parse(window.localStorage.getItem(movie));
-    console.log(film.title);
-    console.log(film.movieID);
-    let movieArticle = document.createElement('article');
-    movieArticle.classList.add('movie_article');
-    movieArticle.innerHTML = `
-    <div class="poster">
-  	  <img src="${film.poster}" alt="Movie Poster for ${film.title}">
-    </div>
-    <div class="movie_info">
-      <div class="movie_header">
-  	    <h2>${film.title}</h2>
-        <p>${film.year}</p>
-        <p>⭐ ${film.rating}</p>
-  	  </div>
-      <div class="movie_details">
-        <p>${film.runtime}</p>
-        <p>${film.genre}</p>
-        <button id=${film.movieID} class="remove_btn" data-movieID=${film.movieID} aria-label="Remove movie from watchlist"><span class="material-icons">
-remove_circle
-</span>Remove</button>
-      </div>
-      <div class="movie_plot">
-  			<p>${film.plot}</p>
-    </div>
-  `;
-    mainContent.appendChild(movieArticle);
-    const removeBtn = document.getElementById(`${film.movieID}`);
-    removeBtn.addEventListener('click', () => {
-      let movie = film.movieID;
-      console.log(movie);
-      window.localStorage.removeItem(movie);
-      window.location.reload();
-    });
-  }
+  let fData = movies.map((m) => {
+    let film = JSON.parse(window.localStorage.getItem(m));
+    return (
+      <RenderWatchlist
+        key={film.imdbID}
+        movieID={film.imdbID}
+        Title={film.Title}
+        Poster={film.Poster}
+        Year={film.Year}
+        imdbRating={film.imdbRating}
+        Runtime={film.Runtime}
+        Genre={film.Genre}
+        Plot={film.Plot}
+      />
+    );
+  });
+  root.render(
+    <React.StrictMode>
+      <div className="main_content">{fData}</div>
+    </React.StrictMode>
+  );
 }
 
 renderLocalStorage(movieIDs);
