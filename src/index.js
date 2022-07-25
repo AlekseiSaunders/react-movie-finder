@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-
 import Render from './Render.js';
 import './App.css';
 import './reset.css';
@@ -30,12 +29,12 @@ let handleSubmit = function (event) {
       return movieArray;
     })
     .then((movieArray) => {
+      movieData.length = 0;
       for (let movie of movieArray) {
         fetch(`https://www.omdbapi.com/?apikey=9e510766&t=${movie}`)
           .then(handleResponse)
           .then((data) => {
-            console.log(data);
-            if (movieData.indexOf(data.Title) === -1 && data.Poster !== 'N/A') {
+            if (data.Poster !== 'N/A') {
               movieData.push(data);
             }
             let mData = movieData.map((m) => {
