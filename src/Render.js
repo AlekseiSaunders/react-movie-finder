@@ -1,25 +1,38 @@
 import './App.css';
 import React from 'react';
-import { IoIosAddCircle } from 'react-icons/io';
+import { IoIosSearch } from 'react-icons/io';
 import { IconContext } from 'react-icons/lib';
 
 function Render(props) {
-  function handleAddClick() {
-    let movieToStore = {
-      poster: `${props.Poster}`,
-      title: `${props.Title}`,
-      year: `${props.Year}`,
-      rating: `${props.imdbRating}`,
-      runtime: `${props.Runtime}`,
-      genre: `${props.Genre}`,
-      plot: `${props.Plot}`,
-      movieID: `${props.movieID}`,
-    };
-    window.localStorage.setItem(
-      `${props.movieID}`,
-      JSON.stringify(movieToStore)
+  function handleAmazonClick() {
+    window.open(
+      `https://www.amazon.com/s?k=${props.Title}&i=instant-video`,
+      '_blank',
+      'noopener, noreferrer'
     );
   }
+  function handleNetflixClick() {
+    window.open(
+      `https://www.netflix.com/search?q=${props.Title}`,
+      '_blank',
+      'noopener, noreferrer'
+    );
+  }
+  // let movieToStore = {
+  //   poster: `${props.Poster}`,
+  //   title: `${props.Title}`,
+  //   year: `${props.Year}`,
+  //   rating: `${props.imdbRating}`,
+  //   runtime: `${props.Runtime}`,
+  //   genre: `${props.Genre}`,
+  //   plot: `${props.Plot}`,
+  //   movieID: `${props.movieID}`,
+  // };
+  // window.localStorage.setItem(
+  //   `${props.movieID}`,
+  //   JSON.stringify(movieToStore)
+  // );
+
   const card = (
     <article className="movie_article">
       <div className="poster">
@@ -34,19 +47,34 @@ function Render(props) {
         <div className="movie_details">
           <p>{props.Runtime}</p>
           <p>{props.Genre}</p>
-          <button
-            onClick={handleAddClick}
-            id={props.movieID}
-            className="add_btn"
-            aria-label="Add movie to watchlist"
-          >
-            <IconContext.Provider value={{ className: 'react-icons' }}>
-              <div>
-                <IoIosAddCircle />
-              </div>
-            </IconContext.Provider>
-            Add
-          </button>
+          <div className="movie_btn_search">
+            <button
+              onClick={handleAmazonClick}
+              id={props.movieID}
+              className="add_btn"
+              aria-label="Search for movie on Amazon"
+            >
+              <IconContext.Provider value={{ className: 'react-icons' }}>
+                <div>
+                  <IoIosSearch />
+                </div>
+              </IconContext.Provider>
+              Amazon
+            </button>
+            <button
+              onClick={handleNetflixClick}
+              id={props.movieID}
+              className="add_btn"
+              aria-label="Search for movie on Netflix"
+            >
+              <IconContext.Provider value={{ className: 'react-icons' }}>
+                <div>
+                  <IoIosSearch />
+                </div>
+              </IconContext.Provider>
+              Netflix
+            </button>
+          </div>
         </div>
         <div className="movie_plot">
           <p>{props.Plot}</p>
@@ -59,28 +87,3 @@ function Render(props) {
 }
 
 export default Render;
-
-// const addBtn = document.getElementById(`${props.imdbID}`);
-// addBtn.addEventListener(
-//   'click',
-//   () => {
-//     let movieToStore = {
-//       poster: `${props.Poster}`,
-//       title: `${props.Title}`,
-//       year: `${props.Year}`,
-//       rating: `${props.imdbRating}`,
-//       runtime: `${props.Runtime}`,
-//       genre: `${props.Genre}`,
-//       plot: `${props.Plot}`,
-//       movieID: `${props.imdbID}`,
-//     };
-//     window.localStorage.setItem(
-//       `${props.imdbID}`,
-//       JSON.stringify(movieToStore)
-//     );
-//   }
-// handleAddClick
-// () => {
-//     console.log(event.target.dataset.movie);
-//   }
-// );
