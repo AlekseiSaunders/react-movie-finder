@@ -25,7 +25,6 @@ let handleSubmit = function (event) {
       for (let movie of data.Search) {
         movieArray.push(movie.Title);
       }
-      console.log(movieArray);
       return movieArray;
     })
     .then((movieArray) => {
