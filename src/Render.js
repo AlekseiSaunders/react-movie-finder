@@ -18,20 +18,6 @@ function Render(props) {
       'noopener, noreferrer'
     );
   }
-  // let movieToStore = {
-  //   poster: `${props.Poster}`,
-  //   title: `${props.Title}`,
-  //   year: `${props.Year}`,
-  //   rating: `${props.imdbRating}`,
-  //   runtime: `${props.Runtime}`,
-  //   genre: `${props.Genre}`,
-  //   plot: `${props.Plot}`,
-  //   movieID: `${props.movieID}`,
-  // };
-  // window.localStorage.setItem(
-  //   `${props.movieID}`,
-  //   JSON.stringify(movieToStore)
-  // );
 
   const card = (
     <article className="movie_article">
